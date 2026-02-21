@@ -1,6 +1,6 @@
 # How Apache Spark Works
 
-![How Apache Spark works](./how-apache-spark-works.drawio.svg)
+![How Apache Spark works](./how-apache-spark-works.drawio.png)
 
 Once the code is ready to be run, the following things happen:
 

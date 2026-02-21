@@ -14,7 +14,7 @@ When a Spark Job is triggered, the following things happen:
 
 ## A Typical Spark Cluster
 
-![Spark Cluster Architecture](./spark-cluster.drawio.svg)
+![Spark Cluster Architecture](./spark-cluster.drawio.png)
 
 [How Apache Spark Works](./apache-spark/how-apache-spark-works.md)
 
