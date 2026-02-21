@@ -9,3 +9,10 @@
 - to run a python file
   - run command `make run TARGET=<PATH_TO_PYTHON_FILE>` e.g. `make run TARGET=./src/sample.py`
   - Or, run command `poetry run python PATH_TO_PYTHON_FILE` e.g. `poetry run python ./src/sample.py`
+
+## Running Spark on Kubernetes
+[Running Spark on Kubernetes](https://spark.apache.org/docs/latest/running-on-kubernetes.html)
+
+## Connect to Spark Connect server
+[Launch Spark server with Spark Connect](https://spark.apache.org/docs/4.1.1/api/python/getting_started/quickstart_connect.html#Launch-Spark-server-with-Spark-Connect)
+
