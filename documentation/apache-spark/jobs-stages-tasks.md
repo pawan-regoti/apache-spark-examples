@@ -79,4 +79,4 @@ aggregated = projected.agg(F.count("site_code").alias("count"))
 result = aggregated.collect()
 ```
 
-![Jobs, Stages and Tasks](./apache-spark.jobs-stages-and-tasks.drawio.png)
+![Jobs, Stages and Tasks](./apache-spark.jobs-stages-and-tasks.drawio.svg)

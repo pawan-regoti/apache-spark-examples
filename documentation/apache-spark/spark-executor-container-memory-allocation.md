@@ -8,7 +8,7 @@ Spark has 3 main memory regions in an executor container:
 
 Each region is controlled by different Spark configuration parameters and is used for different purposes during execution.
 
-![spark executor container memory allocation](./apache-spark.executor-container-memory.drawio.png)
+![spark executor container memory allocation](./apache-spark.executor-container-memory.drawio.svg)
 ---
 
 ## On-heap Memory
