@@ -13,3 +13,7 @@ install:
 .PHONY: test
 test:
 	poetry run pytest -vv test/
+
+.PHONY: run
+run:
+	poetry run python $(TARGET)
