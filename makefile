@@ -53,28 +53,28 @@ check-spark:
 
 .PHONY: local-k8s-setup
 local-k8s-setup:
-	./k8s-setup.sh
+	./bash-scripts/k8s-setup.sh
 
 .PHONY: local-k8s-submit
 local-k8s-submit: check-spark
 	make local-k8s-cleanup
-	./spark-submit.sh
+	./bash-scripts/spark-submit.sh
 
 .PHONY: local-k8s-cleanup
 local-k8s-cleanup:
-	./k8s-cleanup.sh
+	./bash-scripts/k8s-cleanup.sh
 
 .PHONY: local-k8s-teardown
 local-k8s-teardown:
-	./k8s-teardown.sh
+	./bash-scripts/k8s-teardown.sh
 
 .PHONY: local-k8s-logs
 local-k8s-logs:
-	./spark-logs.sh
+	./bash-scripts/spark-logs.sh
 
 .PHONY: local-k8s-ui
 local-k8s-ui:
-	./spark-ui.sh
+	./bash-scripts/spark-ui.sh
 
 .PHONY: local-k8s-status
 local-k8s-status:
