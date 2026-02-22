@@ -19,31 +19,9 @@
 [Launch Spark server with Spark Connect](https://spark.apache.org/docs/4.1.1/api/python/getting_started/quickstart_connect.html#Launch-Spark-server-with-Spark-Connect)
 
 ## Command Examples:
-`make local-k8s-setup`
-![cmd-local-k8s-setup](./documentation/local-k8s-run-example/cmd-local-k8s-setup.png)
+`make init`
+![cmd-init](./documentation/run-example/cmd-make-init.png)
 
 ---
-`make local-k8s-submit`
-![cmd-local-k8s-submit](./documentation/local-k8s-run-example/cmd-local-k8s-submit.png)
-
-![rancher-desktop-ui](./documentation/local-k8s-run-example/rancher-desktop-ui.png)
-
----
-`make local-k8s-logs`
-![cmd-local-k8s-logs](./documentation/local-k8s-run-example/cmd-local-k8s-logs.png)
-
----
-`make local-k8s-ui`
-![cmd-local-k8s-ui](./documentation/local-k8s-run-example/cmd-local-k8s-ui.png)
-
-![spark-ui](./documentation/local-k8s-run-example/spark-ui.png)
-
-![spark-ui-stages](./documentation/local-k8s-run-example/spark-ui-stages.png)
-
----
-`make local-k8s-cleanup`
-![cmd-local-k8s-cleanup](./documentation/local-k8s-run-example/cmd-local-k8s-cleanup.png)
-
----
-`make local-k8s-teardown`
-![cmd-local-k8s-teardown](./documentation/local-k8s-run-example/cmd-local-k8s-teardown.png)
+`make run TARGET=./src/sample.py`
+![cmd-make-run](./documentation/run-example/cmd-make-run.png)

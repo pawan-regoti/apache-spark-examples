@@ -71,8 +71,37 @@ make local-k8s-logs      # View completed job logs
 make local-k8s-cleanup   # Remove Spark jobs (keeps service account)
 make local-k8s-teardown  # Complete teardown (removes everything)
 ```
-make local-k8s-teardown  # Complete teardown (removes everything)
-```
+
+## Command Examples:
+`make local-k8s-setup`
+![cmd-local-k8s-setup](./documentation/local-k8s-run-example/cmd-local-k8s-setup.png)
+
+---
+`make local-k8s-submit`
+![cmd-local-k8s-submit](./documentation/local-k8s-run-example/cmd-local-k8s-submit.png)
+
+![rancher-desktop-ui](./documentation/local-k8s-run-example/rancher-desktop-ui.png)
+
+---
+`make local-k8s-logs`
+![cmd-local-k8s-logs](./documentation/local-k8s-run-example/cmd-local-k8s-logs.png)
+
+---
+`make local-k8s-ui`
+![cmd-local-k8s-ui](./documentation/local-k8s-run-example/cmd-local-k8s-ui.png)
+
+![spark-ui](./documentation/local-k8s-run-example/spark-ui.png)
+
+![spark-ui-stages](./documentation/local-k8s-run-example/spark-ui-stages.png)
+
+---
+`make local-k8s-cleanup`
+![cmd-local-k8s-cleanup](./documentation/local-k8s-run-example/cmd-local-k8s-cleanup.png)
+
+---
+`make local-k8s-teardown`
+![cmd-local-k8s-teardown](./documentation/local-k8s-run-example/cmd-local-k8s-teardown.png)
+
 
 ### For Remote Kubernetes Cluster
 
@@ -158,7 +187,7 @@ The `spark-submit.sh` is configured for Rancher Desktop by default.
 
 When referencing application files, use the `local://` prefix with the path inside the container:
 ```
-local:///opt/spark/work-dir/src/caching.py
+local:///opt/spark/work-dir/src/demo.py
 ```
 
 ### Kubernetes Service Account
