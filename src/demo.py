@@ -71,6 +71,7 @@ def run_demo():
         large_df = large_df.union(large_df)
 
     large_df = large_df.repartition(8)   # 8 balanced partitions
+    spark.sparkContext.setJobDescription("[Dataset] Count total rows")
     print(f"Total rows  : {large_df.count():,}")
     print(f"Partitions  : {large_df.rdd.getNumPartitions()}")
     large_df.printSchema()
@@ -94,6 +95,7 @@ def run_demo():
 
     # First ACTION – triggers the whole chain:
     print("Triggering action: show()")
+    spark.sparkContext.setJobDescription("[Lazy Eval] Monthly rain aggregation")
     aggregated.orderBy("month").show()
 
     wait_for_next_demo()
@@ -112,6 +114,7 @@ def run_demo():
         .select("date", "weather", "temp_range")       # select    – narrow
     )
     print("Narrow result sample:")
+    spark.sparkContext.setJobDescription("[Narrow] Filter + withColumn + select")
     narrow.show(5)
 
     section("Wide Transformations  (require shuffle)")
@@ -128,6 +131,7 @@ def run_demo():
         .orderBy(F.desc("count"))                      # wide – global sort
     )
     print("Wide result (weather summary):")
+    spark.sparkContext.setJobDescription("[Wide] GroupBy weather + orderBy (shuffle)")
     wide.show()
 
     wait_for_next_demo()
@@ -139,15 +143,19 @@ def run_demo():
     section("Caching")
 
     # Without cache – DataFrame recomputed from scratch each time
+    spark.sparkContext.setJobDescription("[Cache] count without cache – pass 1")
     with timer("count WITHOUT cache (1st pass)"):
         _ = large_df.count()
+    spark.sparkContext.setJobDescription("[Cache] count without cache – pass 2")
     with timer("count WITHOUT cache (2nd pass)"):
         _ = large_df.count()
 
     # With cache – first action materialises and stores; subsequent hits memory
     large_df.cache()
+    spark.sparkContext.setJobDescription("[Cache] count WITH cache – materialise")
     with timer("count WITH cache (materialise)"):
         _ = large_df.count()
+    spark.sparkContext.setJobDescription("[Cache] count WITH cache – cache hit")
     with timer("count WITH cache (cache hit)"):
         _ = large_df.count()
 
@@ -178,6 +186,7 @@ def run_demo():
 
     # Show partition distribution
     print("Row counts per partition:")
+    spark.sparkContext.setJobDescription("[Partitioning] Row distribution across partitions")
     by_weather.groupBy(F.spark_partition_id().alias("partition_id")).count().orderBy("partition_id").show()
 
     wait_for_next_demo()
@@ -206,6 +215,7 @@ def run_demo():
 
     labelled = large_df.withColumn("weather_label", map_label(F.col("weather")))
     print("Broadcast join result (sample):")
+    spark.sparkContext.setJobDescription("[Broadcast] UDF lookup via broadcast variable")
     labelled.select("date", "weather", "weather_label").show(8)
 
     wait_for_next_demo()
@@ -217,9 +227,9 @@ def run_demo():
     section("Accumulators")
 
     # Accumulators are write-only from executors; driver reads the total
-    rainy_days   = spark.sparkContext.accumulator(0, "Rainy Days")
-    extreme_heat = spark.sparkContext.accumulator(0, "Extreme Heat Days (>30°C)")
-    missing_data = spark.sparkContext.accumulator(0, "Missing Precipitation")
+    rainy_days   = spark.sparkContext.accumulator(0)
+    extreme_heat = spark.sparkContext.accumulator(0)
+    missing_data = spark.sparkContext.accumulator(0)
 
     def audit_row(row):
         if row["weather"] == "rain":
@@ -230,11 +240,12 @@ def run_demo():
             missing_data.add(1)
 
     # foreach is an action – triggers execution across all executors
+    spark.sparkContext.setJobDescription("[Accumulator] foreach audit – rainy/heat/missing counts")
     large_df.foreach(audit_row)
 
-    print(f"Rainy day records   : {rainy_days.value:,}")
-    print(f"Extreme heat records: {extreme_heat.value:,}")
-    print(f"Missing precip rows : {missing_data.value:,}")
+    print(f"Rainy day records        : {rainy_days.value:,}")
+    print(f"Extreme heat (>30°C) rows: {extreme_heat.value:,}")
+    print(f"Missing precipitation rows: {missing_data.value:,}")
 
     wait_for_next_demo()
 
