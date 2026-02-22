@@ -4,11 +4,13 @@
 
 ## To run examples:
 - Open Terminal in <repo-root>
-- run command `make init` (it will create .venv, and installs poetry)
-- run command `make install` (it will install all python dependencies)
+- run command `make init` (it will create .venv, and installs poetry and other dependencies)
 - to run a python file
   - run command `make run TARGET=<PATH_TO_PYTHON_FILE>` e.g. `make run TARGET=./src/sample.py`
   - Or, run command `poetry run python PATH_TO_PYTHON_FILE` e.g. `poetry run python ./src/sample.py`
+
+## Running Spark Local Kubernetes cluster like Rancher Desktop
+[Running Spark locally](./DEPLOYMENT.md)
 
 ## Running Spark on Kubernetes
 [Running Spark on Kubernetes](https://spark.apache.org/docs/latest/running-on-kubernetes.html)
