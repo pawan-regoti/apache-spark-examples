@@ -3,7 +3,7 @@
 > To read how apache spark works, go to [./documentation/intro.md](./documentation/intro.md)
 
 ## To run examples:
-- Open Terminal in <repo-root>
+- Open Terminal in `<repo-root>`
 - run command `make init` (it will create .venv, and installs poetry and other dependencies)
 - to run a python file
   - run command `make run TARGET=<PATH_TO_PYTHON_FILE>` e.g. `make run TARGET=./src/sample.py`
