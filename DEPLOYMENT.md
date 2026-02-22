@@ -64,10 +64,13 @@ make local-k8s-submit    # Submit Spark job to K8s
 
 # Monitoring
 make local-k8s-status    # Check Spark pods and services
-make local-k8s-logs      # Show how to view logs
+make local-k8s-ui        # Access Spark UI (while job is running)
+make local-k8s-logs      # View completed job logs
 
 # Cleanup
 make local-k8s-cleanup   # Remove Spark jobs (keeps service account)
+make local-k8s-teardown  # Complete teardown (removes everything)
+```
 make local-k8s-teardown  # Complete teardown (removes everything)
 ```
 
@@ -214,6 +217,62 @@ spark.kubernetes.executor.request.cores=2-4
 - `spark.kubernetes.driver.request.cores`: Kubernetes CPU resource request for driver pod (can be fractional like 0.1)
 - `spark.kubernetes.executor.request.cores`: Kubernetes CPU resource request for executor pod (can be fractional like 0.1)
 
+## Monitoring and Accessing Spark UI
+
+### Access Spark UI (while job is running)
+
+The Spark UI is only available while the job is running. To access it:
+
+In a new terminal session
+```bash
+# Option 1: Use the helper script
+make local-k8s-ui
+# Or: ./spark-ui.sh
+
+# Option 2: Manual port-forward
+kubectl port-forward -n default <driver-pod-name> 4040:4040
+```
+
+Then open in your browser: **http://localhost:4040**
+
+The UI shows:
+- Job progress and stages
+- Executor status and tasks
+- SQL queries and DAG visualization
+- Storage and environment info
+
+**Note:** The UI stops when the job completes.
+
+### View logs after job completion
+
+```bash
+# View logs from the most recent job
+make local-k8s-logs
+# Or: ./spark-logs.sh
+
+# View logs from a specific pod
+kubectl logs -n default <driver-pod-name>
+
+# Follow logs in real-time
+kubectl logs -n default <driver-pod-name> -f
+
+# View executor logs
+kubectl logs -n default <executor-pod-name>
+```
+
+### Check job status
+
+```bash
+# Check all Spark pods and services
+make local-k8s-status
+
+# List all pods with details
+kubectl get pods -n default -l spark-role
+
+# Describe a pod for detailed info
+kubectl describe pod <pod-name> -n default
+```
+
 ## Troubleshooting
 
 ### Insufficient CPU/Memory errors
@@ -232,14 +291,18 @@ kubectl describe nodes
 # 2. Or increase Rancher Desktop: Preferences → Resources → CPU (2+)
 ```
 
-### Check pod status
+### Pod stuck in Pending state
 ```bash
-kubectl get pods -n default
-# Or use makefile:
-make local-k8s-status
+# Check why pod can't be scheduled
+kubectl describe pod <pod-name> -n default
+
+# Look for events at the bottom showing:
+# - Insufficient CPU/Memory
+# - Image pull errors
+# - Volume mount issues
 ```
 
-### View logs
+### Job fails or crashes
 ```bash
 kubectl logs <driver-pod-name> -n default
 ```

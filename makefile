@@ -70,11 +70,11 @@ local-k8s-teardown:
 
 .PHONY: local-k8s-logs
 local-k8s-logs:
-	@echo "Recent Spark pods:"
-	@kubectl get pods -l spark-role --namespace=default
-	@echo ""
-	@echo "To view logs of a specific pod:"
-	@echo "  kubectl logs <pod-name> --namespace=default"
+	./spark-logs.sh
+
+.PHONY: local-k8s-ui
+local-k8s-ui:
+	./spark-ui.sh
 
 .PHONY: local-k8s-status
 local-k8s-status:
