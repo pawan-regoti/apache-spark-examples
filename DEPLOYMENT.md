@@ -15,7 +15,7 @@ This guide explains how to build a Docker image and deploy your PySpark applicat
 
 ## Quick Start
 
-### Preequisities
+### Prerequisities
 
 **1. Initialize project:**
 ```bash
