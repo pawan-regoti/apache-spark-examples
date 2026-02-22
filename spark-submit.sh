@@ -4,11 +4,11 @@
 # For Rancher Desktop, use: k8s://https://127.0.0.1:6443
 K8S_MASTER="k8s://https://127.0.0.1:6443"
 IMAGE_NAME="pyspark-app:latest"
-APP_NAME="pyspark-example"
+APP_NAME="pyspark-app"
 EXECUTOR_INSTANCES=5
 
 # Application file (must be inside the Docker image)
-APP_FILE="local:///opt/spark/work-dir/src/long-running-job.py"
+APP_FILE="local:///opt/spark/work-dir/src/demo.py"
 
 # Find spark-submit 
 # Check common Spark installation locations
